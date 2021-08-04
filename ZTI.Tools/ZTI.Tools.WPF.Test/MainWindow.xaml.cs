@@ -31,5 +31,15 @@ namespace ZTI.Tools.WPF.Test
             Window window = new Window();
             window.Show();
         }
+
+        private void btnSetSystemCursor_Click(object sender, RoutedEventArgs e)
+        {
+            ZTI.Tools.WPF.Mouse.SetSystemCursor(Definitions.OCR_TYPE.OCR_NORMAL, "pointer.cur");
+        }
+
+        private void btnResetSystemCursor_Click(object sender, RoutedEventArgs e)
+        {
+            ZTI.Tools.WPF.Mouse.ResetSystemCursor(Definitions.OCR_TYPE.OCR_NORMAL);
+        }
     }
 }

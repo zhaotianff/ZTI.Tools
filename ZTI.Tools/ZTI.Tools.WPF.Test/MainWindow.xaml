@@ -6,9 +6,16 @@
         xmlns:local="clr-namespace:ZTI.Tools.WPF.Test"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <WrapPanel>
             <Button Content="Set cursor" Click="btnSetCursor_Click"/>
+            <Button Content="Set system cursor" Click="btnSetSystemCursor_Click"/>
+            <Button Content="Reset system cursor" Click="btnResetSystemCursor_Click"/>
         </WrapPanel>
     </Grid>
 </Window>
