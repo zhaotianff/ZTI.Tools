@@ -14,8 +14,8 @@ namespace ZTI.Tools.WPF
         private static Dictionary<string, string> systemCursorPathDic = new Dictionary<string, string>()
         {
             ["OCR_APPSTARTING"] = @"C:\Windows\Cursors\aero_working.ani",
-            ["OCR_NORMAL"] = @"C:\Windows\Cursors\aero_arrow.ani",
-            ["OCR_CROSS"] = @"C:\Windows\Cursors\cross_r.ani",
+            ["OCR_NORMAL"] = @"C:\Windows\Cursors\aero_arrow.cur",
+            ["OCR_CROSS"] = @"C:\Windows\Cursors\cross_r.cur",
             ["OCR_HAND"] = @"C:\Windows\Cursors\aero_link.cur",
             ["OCR_HELP"] = @"C:\Windows\Cursors\aero_helpsel.cur",
             ["OCR_IBEAM"] = @"C:\Windows\Cursors\beam_r.cur",
@@ -55,14 +55,21 @@ namespace ZTI.Tools.WPF
             }
         }
 
-        /// <summary>
-        /// require administrator
-        /// </summary>
-        /// <param name="oCR_TYPE"></param>
+
         public static void ResetSystemCursor(OCR_TYPE oCR_TYPE)
         {
             var cursorFile = systemCursorPathDic[oCR_TYPE.ToString()];
             SetSystemCursor(oCR_TYPE, cursorFile);
+        }
+
+        public static void HookMouse()
+        {
+
+        }
+
+        public static void UnhookMouse()
+        {
+
         }
     }
 }

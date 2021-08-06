@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,8 +39,16 @@ namespace ZTI.Tools.WPF.Test
         }
 
         private void btnResetSystemCursor_Click(object sender, RoutedEventArgs e)
-        {
+        {     
             ZTI.Tools.WPF.Mouse.ResetSystemCursor(Definitions.OCR_TYPE.OCR_NORMAL);
+        }
+
+
+        static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
