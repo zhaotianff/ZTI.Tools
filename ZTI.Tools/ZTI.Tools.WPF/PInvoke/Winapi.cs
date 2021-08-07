@@ -9,7 +9,28 @@ namespace ZTI.Tools.WPF.PInvoke
 {
     public class Winapi
     {
-        private const string USER32 = "user32.dll";
+        public const string USER32 = "user32.dll";
+        public const string KERNEL32 = "kernel32.dll";
+
+        #region KERNEL32
+        /// <summary>
+        /// Retrieves the calling thread's last-error code value. The last-error code is maintained on a per-thread basis. Multiple threads do not overwrite each other's last-error code.
+        /// </summary>
+        /// <returns></returns>
+        [DllImport(KERNEL32)]
+        public static extern int GetLastError();
+
+        /// <summary>
+        /// Loads the specified module into the address space of the calling process. The specified module may cause other modules to be loaded.
+        /// </summary>
+        /// <param name="lpLibFileName"></param>
+        /// <returns></returns>
+        [DllImport(KERNEL32)]
+        public static extern IntPtr LoadLibrary(string lpLibFileName);
+
+        [DllImport(KERNEL32)]
+        public static extern bool FreeLibrary(IntPtr hLibModule);
+        #endregion
 
         /// <summary>
         /// Creates a cursor based on data contained in a file.
@@ -34,6 +55,36 @@ namespace ZTI.Tools.WPF.PInvoke
         /// These events are associated either with a specific thread or with all threads in the same desktop as the calling thread.
         /// </summary>
         [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
-        public static extern int SetWindowHookEx(int hookType, ApiDefinition.GetMsgProc lpfn, IntPtr hmod, int dwThreadId);
+        public static extern int SetWindowsHookEx(int hookType, ApiDefinition.GetMsgProc lpfn, IntPtr hmod, int dwThreadId);
+
+        /// <summary>
+        /// Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
+        /// </summary>
+        /// <param name="idHook"></param>
+        /// <returns></returns>
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(IntPtr idHook);
+
+        /// <summary>
+        /// Defines a system-wide hot key.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="id"></param>
+        /// <param name="fsModifiers"></param>
+        /// <param name="vk"></param>
+        /// <returns></returns>
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+        /// <summary>
+        /// Frees a hot key previously registered by the calling thread.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZTI.Tools.WPF.Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" KeyDown="Window_KeyDown">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -16,6 +16,7 @@
             <Button Content="Set cursor" Click="btnSetCursor_Click"/>
             <Button Content="Set system cursor" Click="btnSetSystemCursor_Click"/>
             <Button Content="Reset system cursor" Click="btnResetSystemCursor_Click"/>
+            <Button Content="Mouse hook" Click="btnMouseHook_Click"/>
         </WrapPanel>
     </Grid>
 </Window>

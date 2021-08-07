@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using ZTI.Tools.WPF.Definitions;
 using ZTI.Tools.WPF.PInvoke;
+using static ZTI.Tools.WPF.PInvoke.ApiDefinition;
 
 namespace ZTI.Tools.WPF
 {
     public static class Mouse
     {
+        private static IntPtr mouseHanlder = IntPtr.Zero;
+
         //C:\Windows\Cursors
         private static Dictionary<string, string> systemCursorPathDic = new Dictionary<string, string>()
         {
@@ -62,14 +66,71 @@ namespace ZTI.Tools.WPF
             SetSystemCursor(oCR_TYPE, cursorFile);
         }
 
-        public static void HookMouse()
+        public static bool HookMouse()
         {
+            if(mouseHanlder == IntPtr.Zero)
+            {
+                IntPtr hookPtr = Winapi.LoadLibrary(Winapi.USER32);
+                mouseHanlder = (IntPtr)Winapi.SetWindowsHookEx(ApiDefinition.WM_MOUSE_LL,MouseHookProcedure, hookPtr, 0);
 
+                if(mouseHanlder == IntPtr.Zero)
+                {
+                    var error = Winapi.GetLastError();
+                    UnhookMouse();
+                    return false;
+                }
+
+                if(hookPtr != IntPtr.Zero)
+                {
+                    Winapi.FreeLibrary(hookPtr);
+                    hookPtr = IntPtr.Zero;
+                }
+            }
+            return true;
         }
 
-        public static void UnhookMouse()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nCode"></param>
+        /// <param name="wParam">windows message</param>
+        /// <param name="lParam">message param</param>
+        /// <returns></returns>
+        private static int MouseHookProcedure(int nCode, int wParam,IntPtr lParam)
         {
+            if(nCode >= 0)
+            {
+                MouseHookStruct mouseParam = (MouseHookStruct)Marshal.PtrToStructure<MouseHookStruct>(lParam);
 
+                switch(wParam)
+                {
+                    case WM_MOUSE_LL:
+                    case WM_MOUSEMOVE:
+                    case WM_LBUTTONDOWN:
+                    case WM_RBUTTONDOWN:
+                    case WM_MBUTTONDOWN:
+                    case WM_LBUTTONUP:
+                    case WM_RBUTTONUP:
+                    case WM_MBUTTONUP:
+                    case WM_LBUTTONDBLCLK:
+                    case WM_RBUTTONDBLCLK:
+                    case WM_MBUTTONDBLCLK:
+                    case WM_MOUSEWHEEL:
+                        return 1;
+                }
+            }
+            return 0;
+        }
+
+        public static bool UnhookMouse()
+        {
+            bool result = false;
+            if (mouseHanlder != IntPtr.Zero)
+            {
+                result =  Winapi.UnhookWindowsHookEx(mouseHanlder);
+            }
+            mouseHanlder = IntPtr.Zero;
+            return result;
         }
     }
 }

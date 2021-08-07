@@ -50,5 +50,25 @@ namespace ZTI.Tools.WPF.Test
             WindowsPrincipal principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
+
+        private void btnMouseHook_Click(object sender, RoutedEventArgs e)
+        {
+            if(Mouse.HookMouse())
+            {
+                MessageBox.Show("Set hook success,press [ESC] to unhook");
+            }
+            else
+            {
+                MessageBox.Show("Set hook failed");
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                Mouse.UnhookMouse();
+            }
+        }
     }
 }
