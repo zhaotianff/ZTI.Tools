@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZTI.Tools.WPF.PInvoke;
 
 namespace ZTI.Tools.WPF.Test
 {

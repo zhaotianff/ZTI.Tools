@@ -32,6 +32,7 @@ namespace ZTI.Tools.WPF.PInvoke
         public static extern bool FreeLibrary(IntPtr hLibModule);
         #endregion
 
+        #region USER32
         /// <summary>
         /// Creates a cursor based on data contained in a file.
         /// </summary>
@@ -85,6 +86,20 @@ namespace ZTI.Tools.WPF.PInvoke
         [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        
+        /// <summary>
+        /// Displays or hides the cursor.
+        /// </summary>
+        /// <param name="bShow"></param>
+        /// <returns></returns>
+
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool ShowCursor(bool bShow);
+
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern uint SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
+
+        [DllImport(USER32, CallingConvention = CallingConvention.StdCall)]
+        public static extern uint GetWindowLong(IntPtr hWnd, int nIndex);
+        #endregion
     }
 }

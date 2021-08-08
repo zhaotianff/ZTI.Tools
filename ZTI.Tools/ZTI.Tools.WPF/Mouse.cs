@@ -132,5 +132,31 @@ namespace ZTI.Tools.WPF
             mouseHanlder = IntPtr.Zero;
             return result;
         }
+
+        public static bool ShowMouse()
+        {
+            return Winapi.ShowCursor(true);
+        }
+
+        public static bool HideMouse()
+        {
+            return Winapi.ShowCursor(false);
+        }
+
+        public static void SimulateMouse(MouseEventType mouseEventType,int x,int y,int dwData)
+        {
+            //TODO
+            //SendInput
+        }
+
+        public static void TransparentWindow(IntPtr hWnd)
+        {
+
+        }
+
+        public static void OpaqueWindow(IntPtr hWnd)
+        {
+
+        }
     }
 }
