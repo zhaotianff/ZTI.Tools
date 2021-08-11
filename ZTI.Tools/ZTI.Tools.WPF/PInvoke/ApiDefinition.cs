@@ -21,6 +21,29 @@ namespace ZTI.Tools.WPF.PInvoke
         public const int WM_RBUTTONDBLCLK = 0x206;
         public const int WM_MBUTTONDBLCLK = 0x209;
         public const int WM_MOUSEWHEEL = 0x020A;
+
+        public const int WM_KEYFIRST = 0x0100;
+        public const int WM_KEYDOWN = 0x0100;
+        public const int WM_KEYUP = 0x0101;
+        public const int WM_CHAR = 0x0102;
+        public const int WM_DEADCHAR = 0x0103;
+        public const int WM_SYSKEYDOWN = 0x0104;
+        public const int WM_SYSKEYUP = 0x0105;
+        #endregion
+
+        #region Virtual Key Code
+        public const int VK_LWIN = 0x5B;
+        public const int VK_RWIN = 0x5C;
+        #endregion
+
+        #region Hook Codes
+        public const int HC_ACTION = 0;
+        public const int HC_GETNEXT = 1;
+        public const int HC_SKIP = 2;
+        public const int HC_NOREMOVE = 3;
+        public const int HC_NOREM = HC_NOREMOVE;
+        public const int HC_SYSMODALON = 4;
+        public const int HC_SYSMODALOFF = 5;
         #endregion
 
         #region WindowsLong
@@ -119,13 +142,22 @@ namespace ZTI.Tools.WPF.PInvoke
 
         public struct tagINPUT
         {
-            int type;         
-            int dx;
-            int dy;
-            int mouseData;
-            MouseEventType dwFlags;
-            uint time;
-            UIntPtr dwExtraInfo;        
+            public int type;
+            public int dx;
+            public int dy;
+            public int mouseData;
+            public MouseEventType dwFlags;
+            public uint time;
+            public UIntPtr dwExtraInfo;        
+        }
+
+        public struct tagKEYBDINPUT
+        {
+            public ushort wVk;
+            public ushort wScan;
+            public uint dwFlags;
+            public uint time;
+            public UIntPtr dwExtraInfo;
         }
     }
 }
